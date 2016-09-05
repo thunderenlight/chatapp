@@ -1,0 +1,240 @@
+  [1m[35m (185.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (42.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (14.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2884877038038020340);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (17.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateMessages (20160817214733)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (81.9ms)[0m  [1m[35mCREATE TABLE "messages" ("id" serial primary key, "content" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20160817214733"]]
+  [1m[35m (15.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (9.7ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2016-08-17 21:48:01 UTC], ["updated_at", 2016-08-17 21:48:01 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(2884877038038020340)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (10.4ms)[0m  [1m[34mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'messages'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+Started GET "/" for ::1 at 2016-08-17 17:14:18 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by RoomsController#show as HTML
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (12.8ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of templates [0 times] (0.0ms)
+  Rendered rooms/show.html.erb within layouts/application (18.0ms)
+Completed 200 OK in 3797ms (Views: 3729.7ms | ActiveRecord: 14.0ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 17:14:24 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:14:24 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+Finished "/cable/" [WebSocket] for ::1 at 2016-08-17 17:16:01 -0500
+Started GET "/" for ::1 at 2016-08-17 17:16:01 -0500
+Processing by RoomsController#show as HTML
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (0.3ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of templates [0 times] (0.1ms)
+  Rendered rooms/show.html.erb within layouts/application (2.5ms)
+Completed 200 OK in 46ms (Views: 42.9ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 17:16:01 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:16:01 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel#speak
+RoomChannel#speak
+Started GET "/cable" for ::1 at 2016-08-17 17:37:50 -0500
+Started GET "/" for ::1 at 2016-08-17 17:37:50 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by RoomsController#show as HTML
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:37:51 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+Finished "/cable/" [WebSocket] for ::1 at 2016-08-17 17:37:51 -0500
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (0.9ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of templates [0 times] (0.0ms)
+  Rendered rooms/show.html.erb within layouts/application (27.5ms)
+Completed 200 OK in 3689ms (Views: 3566.7ms | ActiveRecord: 2.8ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 17:37:56 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:37:56 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel#speak({"message"=>"testing 124"})
+[ActionCable] Broadcasting to room_channel: {:message=>"testing 124"}
+RoomChannel#speak({"message"=>"more tests"})
+[ActionCable] Broadcasting to room_channel: {:message=>"more tests"}
+Started GET "/" for ::1 at 2016-08-17 17:39:56 -0500
+Processing by RoomsController#show as HTML
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (0.6ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of templates [0 times] (0.0ms)
+  Rendered rooms/show.html.erb within layouts/application (3.5ms)
+Completed 200 OK in 77ms (Views: 71.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 17:39:58 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:39:58 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel#speak({"message"=>"anotther test"})
+[ActionCable] Broadcasting to room_channel: {:message=>"anotther test"}
+RoomChannel#speak({"message"=>"treee test"})
+[ActionCable] Broadcasting to room_channel: {:message=>"treee test"}
+RoomChannel#speak({"message"=>"anther tester"})
+[ActionCable] Broadcasting to room_channel: {:message=>"anther tester"}
+Started GET "/cable" for ::1 at 2016-08-17 17:42:04 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:42:05 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+Started GET "/cable" for ::1 at 2016-08-17 17:42:05 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:42:05 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+Finished "/cable/" [WebSocket] for ::1 at 2016-08-17 17:42:31 -0500
+RoomChannel stopped streaming from room_channel
+Started GET "/" for ::1 at 2016-08-17 17:42:31 -0500
+Processing by RoomsController#show as HTML
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (0.6ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of templates [0 times] (0.0ms)
+  Rendered rooms/show.html.erb within layouts/application (8.2ms)
+Completed 200 OK in 399ms (Views: 370.9ms | ActiveRecord: 3.9ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 17:42:34 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:42:34 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+Finished "/cable/" [WebSocket] for ::1 at 2016-08-17 17:42:35 -0500
+RoomChannel stopped streaming from room_channel
+Finished "/cable/" [WebSocket] for ::1 at 2016-08-17 17:42:39 -0500
+RoomChannel stopped streaming from room_channel
+Started GET "/" for ::1 at 2016-08-17 17:42:45 -0500
+Processing by RoomsController#show as HTML
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (0.7ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of templates [0 times] (0.0ms)
+  Rendered rooms/show.html.erb within layouts/application (2.2ms)
+Completed 200 OK in 30ms (Views: 26.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 17:42:46 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:42:46 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+RoomChannel#speak({"message"=>"hey"})
+[ActionCable] Broadcasting to room_channel: {:message=>"hey"}
+RoomChannel transmitting {"message"=>"hey"} (via streamed from room_channel)
+RoomChannel#speak({"message"=>"hey test"})
+[ActionCable] Broadcasting to room_channel: {:message=>"hey test"}
+RoomChannel transmitting {"message"=>"hey test"} (via streamed from room_channel)
+Started GET "/" for ::1 at 2016-08-17 17:43:33 -0500
+Processing by RoomsController#show as HTML
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (0.4ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of templates [0 times] (0.0ms)
+  Rendered rooms/show.html.erb within layouts/application (2.1ms)
+Completed 200 OK in 45ms (Views: 41.6ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 17:43:35 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 17:43:35 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+RoomChannel#speak({"message"=>"wether test"})
+[ActionCable] Broadcasting to room_channel: {:message=>"wether test"}
+RoomChannel transmitting {"message"=>"wether test"} (via streamed from room_channel)
+RoomChannel transmitting {"message"=>"wether test"} (via streamed from room_channel)
+Started GET "/cable" for ::1 at 2016-08-17 18:02:45 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 18:02:46 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+Started GET "/" for ::1 at 2016-08-17 18:03:01 -0500
+Processing by RoomsController#show as HTML
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (1.9ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of templates [0 times] (0.0ms)
+  Rendered rooms/show.html.erb within layouts/application (27.9ms)
+Completed 200 OK in 2693ms (Views: 2646.6ms | ActiveRecord: 5.6ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 18:03:05 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 18:03:05 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+RoomChannel#speak({"message"=>"client to server connection test"})
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "messages" ("content", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["content", "client to server connection test"], ["created_at", 2016-08-17 23:03:36 UTC], ["updated_at", 2016-08-17 23:03:36 UTC]]
+  [1m[35m (15.8ms)[0m  [1m[35mCOMMIT[0m
+[ActiveJob] Enqueued MessageBroadcastJob (Job ID: ec216dc0-4433-4f58-9899-80c3994cffd4) to Async(default) with arguments: #<GlobalID:0x007fb0e311e4f0 @uri=#<URI::GID gid://chatapp/Message/1>>
+  [1m[36mMessage Load (0.7ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[ActiveJob] [MessageBroadcastJob] [ec216dc0-4433-4f58-9899-80c3994cffd4] Performing MessageBroadcastJob from Async(default) with arguments: #<GlobalID:0x007fb0e13cd3b0 @uri=#<URI::GID gid://chatapp/Message/1>>
+[ActiveJob] [MessageBroadcastJob] [ec216dc0-4433-4f58-9899-80c3994cffd4]   Rendered messages/_message.html.erb (0.6ms)
+[ActiveJob] [MessageBroadcastJob] [ec216dc0-4433-4f58-9899-80c3994cffd4] [ActionCable] Broadcasting to room_channel: {:message=>"<div class=\"message\">\n\t<p>client to server connection test</p>\n</div>"}
+[ActiveJob] [MessageBroadcastJob] [ec216dc0-4433-4f58-9899-80c3994cffd4] Performed MessageBroadcastJob from Async(default) in 126.12ms
+RoomChannel transmitting {"message"=>"<div class=\"message\">\n\t<p>client to server connection test</p>\n</div>"} (via streamed from room_channel)
+RoomChannel transmitting {"message"=>"<div class=\"message\">\n\t<p>client to server connection test</p>\n</div>"} (via streamed from room_channel)
+Finished "/cable/" [WebSocket] for ::1 at 2016-08-17 18:03:54 -0500
+RoomChannel stopped streaming from room_channel
+Started GET "/" for ::1 at 2016-08-17 18:03:54 -0500
+Processing by RoomsController#show as HTML
+  Rendering rooms/show.html.erb within layouts/application
+  [1m[36mMessage Load (0.7ms)[0m  [1m[34mSELECT "messages".* FROM "messages"[0m
+  Rendered collection of messages/_message.html.erb [1 times] (0.5ms)
+  Rendered rooms/show.html.erb within layouts/application (5.7ms)
+Completed 200 OK in 473ms (Views: 468.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/cable" for ::1 at 2016-08-17 18:03:55 -0500
+Started GET "/cable/" [WebSocket] for ::1 at 2016-08-17 18:03:55 -0500
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from room_channel
+RoomChannel#speak({"message"=>"here er we test"})
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "messages" ("content", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["content", "here er we test"], ["created_at", 2016-08-17 23:04:08 UTC], ["updated_at", 2016-08-17 23:04:08 UTC]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+[ActiveJob] Enqueued MessageBroadcastJob (Job ID: ade4f9ce-a7b9-4a5c-944a-7c21006402ba) to Async(default) with arguments: #<GlobalID:0x007fb0e115f678 @uri=#<URI::GID gid://chatapp/Message/2>>
+  [1m[36mMessage Load (1.3ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[ActiveJob] [MessageBroadcastJob] [ade4f9ce-a7b9-4a5c-944a-7c21006402ba] Performing MessageBroadcastJob from Async(default) with arguments: #<GlobalID:0x007fb0e05aec48 @uri=#<URI::GID gid://chatapp/Message/2>>
+[ActiveJob] [MessageBroadcastJob] [ade4f9ce-a7b9-4a5c-944a-7c21006402ba]   Rendered messages/_message.html.erb (0.6ms)
+[ActiveJob] [MessageBroadcastJob] [ade4f9ce-a7b9-4a5c-944a-7c21006402ba] [ActionCable] Broadcasting to room_channel: {:message=>"<div class=\"message\">\n\t<p>here er we test</p>\n</div>"}
+[ActiveJob] [MessageBroadcastJob] [ade4f9ce-a7b9-4a5c-944a-7c21006402ba] Performed MessageBroadcastJob from Async(default) in 18.75ms
+RoomChannel transmitting {"message"=>"<div class=\"message\">\n\t<p>here er we test</p>\n</div>"} (via streamed from room_channel)
+RoomChannel transmitting {"message"=>"<div class=\"message\">\n\t<p>here er we test</p>\n</div>"} (via streamed from room_channel)
+RoomChannel#speak({"message"=>"ooow even the div test "})
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "messages" ("content", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["content", "ooow even the div test "], ["created_at", 2016-08-17 23:04:35 UTC], ["updated_at", 2016-08-17 23:04:35 UTC]]
+  [1m[35m (12.2ms)[0m  [1m[35mCOMMIT[0m
+[ActiveJob] Enqueued MessageBroadcastJob (Job ID: 7d94c709-cda4-44be-867a-24b5a8db5ac4) to Async(default) with arguments: #<GlobalID:0x007fb0ddaaaf10 @uri=#<URI::GID gid://chatapp/Message/3>>
+  [1m[36mMessage Load (0.5ms)[0m  [1m[34mSELECT  "messages".* FROM "messages" WHERE "messages"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[ActiveJob] [MessageBroadcastJob] [7d94c709-cda4-44be-867a-24b5a8db5ac4] Performing MessageBroadcastJob from Async(default) with arguments: #<GlobalID:0x007fb0e04f5c48 @uri=#<URI::GID gid://chatapp/Message/3>>
+[ActiveJob] [MessageBroadcastJob] [7d94c709-cda4-44be-867a-24b5a8db5ac4]   Rendered messages/_message.html.erb (0.8ms)
+[ActiveJob] [MessageBroadcastJob] [7d94c709-cda4-44be-867a-24b5a8db5ac4] [ActionCable] Broadcasting to room_channel: {:message=>"<div class=\"message\">\n\t<p>ooow even the div test </p>\n</div>"}
+[ActiveJob] [MessageBroadcastJob] [7d94c709-cda4-44be-867a-24b5a8db5ac4] Performed MessageBroadcastJob from Async(default) in 17.95ms
+RoomChannel transmitting {"message"=>"<div class=\"message\">\n\t<p>ooow even the div test </p>\n</div>"} (via streamed from room_channel)
+RoomChannel transmitting {"message"=>"<div class=\"message\">\n\t<p>ooow even the div test </p>\n</div>"} (via streamed from room_channel)
